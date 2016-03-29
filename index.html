@@ -202,6 +202,86 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/29/sort-fsharp/" itemprop="url">
+                  排序（F#实现）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-29T20:50:26+08:00" content="2016-03-29">
+              2016-03-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ------ Example: define a sort function ------</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> sort list =</span><br><span class="line">   <span class="keyword">match</span> list <span class="keyword">with</span></span><br><span class="line">   <span class="comment">// If the list is empty</span></span><br><span class="line">   | [] -&gt;</span><br><span class="line">        []                            <span class="comment">// return an empty list</span></span><br><span class="line">   <span class="comment">// If the list is not empty</span></span><br><span class="line">   | firstElem::otherElements -&gt;      <span class="comment">// take the first element</span></span><br><span class="line">        <span class="keyword">let</span> smallerElements =         <span class="comment">// extract the smaller elements</span></span><br><span class="line">            otherElements             <span class="comment">// from the remaining ones</span></span><br><span class="line">            |&gt; List.filter (<span class="keyword">fun</span> e -&gt; e &lt; firstElem)</span><br><span class="line">            |&gt; sort                   <span class="comment">// and sort them</span></span><br><span class="line">        <span class="keyword">let</span> largerElements =          <span class="comment">// extract the larger ones</span></span><br><span class="line">            otherElements             <span class="comment">// from the remaining ones</span></span><br><span class="line">            |&gt; List.filter (<span class="keyword">fun</span> e -&gt; e &gt;= firstElem)</span><br><span class="line">            |&gt; sort                   <span class="comment">// and sort them</span></span><br><span class="line">        <span class="comment">// Combine the 3 parts into a new list and return it</span></span><br><span class="line">        List.concat [smallerElements; [firstElem]; largerElements]</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">sort [<span class="number">1</span>; <span class="number">5</span>; <span class="number">23</span>; <span class="number">18</span>; <span class="number">9</span>; <span class="number">1</span>; <span class="number">3</span>] |&gt; printfn <span class="string">"Sorted = %A"</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/27/lang-map-load/" itemprop="url">
                   编程语言学习路线图
                 </a>
@@ -734,7 +814,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">文章</span>
             </a>
           </div>
