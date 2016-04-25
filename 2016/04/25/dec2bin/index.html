@@ -53,16 +53,16 @@
 
 
 
-<meta name="description" content="12345(defn follow-the-rabbit [] &quot;Off we go!&quot;);; -&amp;gt; #&apos;user/follow-the-rabbit(follow-the-rabbit);; -&amp;gt; &quot;Off we go!&quot;">
+<meta name="description" content="JavaScript实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152function Stack() &amp;#123;	var items = [];	this.push = function (element) &amp;#123;		items.push(ele">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Living Clojure">
-<meta property="og:url" content="http://yoursite.com/2016/03/09/living-Clojure/index.html">
+<meta property="og:title" content="十进制转换二进制">
+<meta property="og:url" content="http://yoursite.com/2016/04/25/dec2bin/index.html">
 <meta property="og:site_name" content="SmallTalk">
-<meta property="og:description" content="12345(defn follow-the-rabbit [] &quot;Off we go!&quot;);; -&amp;gt; #&apos;user/follow-the-rabbit(follow-the-rabbit);; -&amp;gt; &quot;Off we go!&quot;">
-<meta property="og:updated_time" content="2016-03-09T00:17:09.709Z">
+<meta property="og:description" content="JavaScript实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152function Stack() &amp;#123;	var items = [];	this.push = function (element) &amp;#123;		items.push(ele">
+<meta property="og:updated_time" content="2016-04-25T03:14:59.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Living Clojure">
-<meta name="twitter:description" content="12345(defn follow-the-rabbit [] &quot;Off we go!&quot;);; -&amp;gt; #&apos;user/follow-the-rabbit(follow-the-rabbit);; -&amp;gt; &quot;Off we go!&quot;">
+<meta name="twitter:title" content="十进制转换二进制">
+<meta name="twitter:description" content="JavaScript实现12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152function Stack() &amp;#123;	var items = [];	this.push = function (element) &amp;#123;		items.push(ele">
 
 
 
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title> Living Clojure | SmallTalk </title>
+  <title> 十进制转换二进制 | SmallTalk </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -194,7 +194,7 @@
             
             
               
-                Living Clojure
+                十进制转换二进制
               
             
           </h1>
@@ -203,8 +203,8 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2016-03-09T08:14:28+08:00" content="2016-03-09">
-              2016-03-09
+            <time itemprop="dateCreated" datetime="2016-04-25T10:59:56+08:00" content="2016-04-25">
+              2016-04-25
             </time>
           </span>
 
@@ -227,8 +227,7 @@
       
 
       
-        <span itemprop="articleBody"><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">defn</span></span> follow-the-rabbit <span class="collection">[]</span> <span class="string">"Off we go!"</span>)</span></span><br><span class="line"><span class="comment">;; -&gt; #'user/follow-the-rabbit</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">follow-the-rabbit</span>)</span></span><br><span class="line"><span class="comment">;; -&gt; "Off we go!"</span></span><br></pre></td></tr></table></figure>
-</span>
+        <span itemprop="articleBody"><h3 id="JavaScript实现">JavaScript实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> items = [];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.push = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">		items.push(element);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">this</span>.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.pop();</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.peek = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items[items.length-<span class="number">1</span>];</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.length == <span class="number">0</span>;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.length;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">this</span>.clear = functions()&#123;</span><br><span class="line">		items = [];</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(items.toString());</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">divideBy2</span>(<span class="params">decNumber</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> remStack = <span class="keyword">new</span> Stack(),</span><br><span class="line">	    rem,</span><br><span class="line">	    binaryString = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (decNumber &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		rem = <span class="built_in">Math</span>.floor(decNumber % <span class="number">2</span>);</span><br><span class="line">		remStack.push(rem);</span><br><span class="line">		decNumber = <span class="built_in">Math</span>.floor(decNumber / <span class="number">2</span>); </span><br><span class="line">	&#125;    </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!remStack.isEmpty) &#123;</span><br><span class="line">		binaryString += remStack.pop().toString();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> binaryString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">233</span>));<span class="comment">//输出11101001</span></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">10</span>));<span class="comment">//输出1010</span></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">1000</span>));<span class="comment">//输出1111101000</span></span><br></pre></td></tr></table></figure></span>
       
     </div>
 
@@ -239,17 +238,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/12/bubble-sort/" rel="next" title="冒泡排序">
-                <i class="fa fa-chevron-left"></i> 冒泡排序
+              <a href="/2016/03/29/sort-fsharp/" rel="next" title="排序（F#实现）">
+                <i class="fa fa-chevron-left"></i> 排序（F#实现）
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/09/simplefactory/" rel="prev" title="简单工厂模式">
-                简单工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -363,7 +358,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript实现"><span class="nav-number">1.</span> <span class="nav-text">JavaScript实现</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
