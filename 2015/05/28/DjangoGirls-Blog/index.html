@@ -53,15 +53,22 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SmallTalk">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta name="description" content="DjangoGirls Blog开发流程
+1.安装Python,pip,virtualenv,Django2.启动virtualenv3.django-admin startproject mysite .4.修改mysite/setting.   修改time_zone = ‘Asia/Shanghai’   修改static_url = ‘/static’   数据库设置默认sqlite3
+5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DjangoGirls Blog开发流程">
+<meta property="og:url" content="http://yoursite.com/2015/05/28/DjangoGirls-Blog/index.html">
 <meta property="og:site_name" content="SmallTalk">
-<meta property="og:description">
+<meta property="og:description" content="DjangoGirls Blog开发流程
+1.安装Python,pip,virtualenv,Django2.启动virtualenv3.django-admin startproject mysite .4.修改mysite/setting.   修改time_zone = ‘Asia/Shanghai’   修改static_url = ‘/static’   数据库设置默认sqlite3
+5">
+<meta property="og:updated_time" content="2016-05-28T07:27:49.563Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SmallTalk">
-<meta name="twitter:description">
+<meta name="twitter:title" content="DjangoGirls Blog开发流程">
+<meta name="twitter:description" content="DjangoGirls Blog开发流程
+1.安装Python,pip,virtualenv,Django2.启动virtualenv3.django-admin startproject mysite .4.修改mysite/setting.   修改time_zone = ‘Asia/Shanghai’   修改static_url = ‘/static’   数据库设置默认sqlite3
+5">
 
 
 
@@ -73,7 +80,7 @@
   };
 </script>
 
-  <title> SmallTalk </title>
+  <title> DjangoGirls Blog开发流程 | SmallTalk </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -94,9 +101,7 @@
 
 
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -173,15 +178,9 @@
       <div class="main-inner">
         <div id="content" class="content">
           
-  <section id="posts" class="posts-expand">
 
+  <div id="posts" class="posts-expand">
     
-
-    
-    
-
-    
-      
 
   
   
@@ -201,10 +200,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2015/05/28/DjangoGirls-Blog/" itemprop="url">
-                  DjangoGirls Blog开发流程
-                </a>
+                DjangoGirls Blog开发流程
               
             
           </h1>
@@ -237,10 +233,7 @@
       
 
       
-        
-          <span itemprop="articleBody">
-            
-              <h3 id="DjangoGirls_Blog开发流程">DjangoGirls Blog开发流程</h3><hr>
+        <span itemprop="articleBody"><h3 id="DjangoGirls_Blog开发流程">DjangoGirls Blog开发流程</h3><hr>
 <p>1.安装Python,pip,virtualenv,Django<br>2.启动virtualenv<br>3.django-admin startproject mysite .<br>4.修改mysite/setting.<br>   修改time_zone = ‘Asia/Shanghai’<br>   修改static_url = ‘/static’<br>   数据库设置默认sqlite3</p>
 <p>5.生成数据库:python manage.py migrate<br>6.启动Django:python manage.py runserver 0.0.0.0:8000<br>7.生成应用blog: python manage.py startapp blog<br>8.修改mysite/settings.py,INSTALLED_APPS添加blog.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">  <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">  <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">  <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">  <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">  <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">  <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">  <span class="string">'blog'</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
@@ -384,10 +377,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_edit</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">    post = get_object_or_404(Post, pk=pk)</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">        form = PostForm(request.POST, instance=post)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            post = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            post.author = request.user</span><br><span class="line">            post.published_date = timezone.now()</span><br><span class="line">            post.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'blog.views.post_detail'</span>, pk=post.pk)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        form = PostForm(instance=post)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'blog/post_edit.html'</span>, &#123;<span class="string">'form'</span>: form&#125;)</span><br></pre></td></tr></table></figure>
 <p>18.</p>
 <p>  ||&gt;&gt;END&lt;&lt;||</p>
-
-            
-          </span>
-        
+</span>
       
     </div>
 
@@ -395,24 +385,32 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/03/hello-world/" rel="prev" title="Hexo快速入门">
+                Hexo快速入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
 
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
         </div>
@@ -421,6 +419,10 @@
 
 
         
+  <div class="comments" id="comments">
+    
+  </div>
+
 
       </div>
 
@@ -441,8 +443,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="SmallTalk" itemprop="image"/>
           <p class="site-author-name" itemprop="name">SmallTalk</p>
@@ -487,6 +498,23 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DjangoGirls_Blog开发流程"><span class="nav-number">1.</span> <span class="nav-text">DjangoGirls Blog开发流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Django Girls Blog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">{{ post.title }}</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">{{ post.title }}</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Django Girls Blog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">New post</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">{{ post.title }}</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
       
 
     </div>
@@ -557,6 +585,167 @@
   <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
 
   <script type="text/javascript" src="/js/bootstrap.js"></script>
 
