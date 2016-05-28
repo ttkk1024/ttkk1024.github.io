@@ -63,7 +63,7 @@
 <meta property="og:description" content="DjangoGirls Blog开发流程
 1.安装Python,pip,virtualenv,Django2.启动virtualenv3.django-admin startproject mysite .4.修改mysite/setting.   修改time_zone = ‘Asia/Shanghai’   修改static_url = ‘/static’   数据库设置默认sqlite3
 5">
-<meta property="og:updated_time" content="2016-05-28T06:58:18.207Z">
+<meta property="og:updated_time" content="2016-05-28T07:01:23.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DjangoGirls Blog开发流程">
 <meta name="twitter:description" content="DjangoGirls Blog开发流程
@@ -253,10 +253,7 @@
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_list</span><span class="params">(request)</span>:</span></span><br><span class="line">	   posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(<span class="string">'published_date'</span>)</span><br><span class="line">	   <span class="keyword">return</span> render(request, <span class="string">'blog/post_list.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure>
 <ol>
-<li>创建base.html</li>
-</ol>
-    
-
+<li>创建base.html    
 {% load staticfiles %}
 <html>
     <head>
@@ -281,11 +278,8 @@
         </body>
     </html>
 
-
-
-<p>创建post_list.html<br>
-
-    {% extends "blog/base.html" %}
+创建post_list.html
+{% extends "blog/base.html" %}
 
     {% block content %}
         {% for post in posts %}
@@ -298,13 +292,14 @@
             </div>
         {% endfor %}
     {% endblock content %}
-</p>
+
+</li>
+</ol>
 <p>15.创建文章详细页面<br>修改blog/urls.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">	   url(<span class="string">r'^$'</span>, views.post_list, name=<span class="string">'post_list'</span>),</span><br><span class="line">	   url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/$'</span>, views.post_detail, name=<span class="string">'post_detail'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>修改blog/view.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_detail</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">	post = get_object_or_404(Post, pk=pk)</span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">'blog/post_detail.html'</span>, &#123;<span class="string">'post'</span>: post&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>添加blog/templates/blog/post_detail.html<br>
-
-    {% extends "blog/base.html" %}
+{% extends "blog/base.html" %}
 
     {% block content %}
         <div class="post">
@@ -317,14 +312,11 @@
             <p>{{ post.text|linebreaks }}</p>
         </div>
     {% endblock %}	
-
-
 <br>16.添加新页面<br>创建blog/form.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Post</span><br><span class="line">        fields = (<span class="string">'title'</span>, <span class="string">'text'</span>,)</span><br></pre></td></tr></table></figure>
 <p>修改blog/templates/blog/base.html</p>
 
-
-    {% load staticfiles %}
+{% load staticfiles %}
     <html>
         <head>
             <title>Django Girls blog</title>
@@ -349,15 +341,13 @@
         </body>
     </html>
 
-
 <p>修改blog/urls.py</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.post_list, name=<span class="string">'post_list'</span>),</span><br><span class="line">    url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/$'</span>, views.post_detail, name=<span class="string">'post_detail'</span>),</span><br><span class="line">    url(<span class="string">r'^post/new/$'</span>, views.post_new, name=<span class="string">'post_new'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>修改blog/views.py,添加</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .forms <span class="keyword">import</span> PostForm</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> redirect</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_new</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">        form = PostForm(request.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            post = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            post.author = request.user</span><br><span class="line">            post.published_date = timezone.now()</span><br><span class="line">            post.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'blog.views.post_detail'</span>, pk=post.pk)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        form = PostForm()</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'blog/post_edit.html'</span>, &#123;<span class="string">'form'</span>: form&#125;)</span><br></pre></td></tr></table></figure>
 <p>添加blog/templates/post_edit.html</p>
 
-
-    {% extends "blog/base.html" %}
+{% extends "blog/base.html" %}
 
     {% block content %}
         <h1>New post</h1>
@@ -367,12 +357,9 @@
         </form>
     {% endblock %}
 
-
-
 <p>17.编辑博客内容<br>修改blog/templates/blog/post_detail.html</p>
 
-
-    {% extends "blog/base.html" %}
+{% extends "blog/base.html" %}
 
     {% block content %}
         <div class="post">
@@ -386,8 +373,6 @@
             <p>{{ post.text|linebreaks }}</p>
         </div>
     {% endblock %}
-
-
 
 <p>在blog/urls.py中添加</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/edit/$'</span>, views.post_edit, name=<span class="string">'post_edit'</span>),</span><br></pre></td></tr></table></figure>
