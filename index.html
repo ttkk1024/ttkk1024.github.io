@@ -222,6 +222,228 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
+            <time itemprop="dateCreated" datetime="2016-05-28T15:19:35+08:00" content="2016-05-28">
+              2016-05-28
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="DjangoGirls_Blog开发流程">DjangoGirls Blog开发流程</h3><hr>
+<p>1.安装Python,pip,virtualenv,Django<br>2.启动virtualenv<br>3.django-admin startproject mysite .<br>4.修改mysite/setting.<br>   修改time_zone = ‘Asia/Shanghai’<br>   修改static_url = ‘/static’<br>   数据库设置默认sqlite3</p>
+<p>5.生成数据库:python manage.py migrate<br>6.启动Django:python manage.py runserver 0.0.0.0:8000<br>7.生成应用blog: python manage.py startapp blog<br>8.修改mysite/settings.py,INSTALLED_APPS添加blog.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">  <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">  <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">  <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">  <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">  <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">  <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">  <span class="string">'blog'</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>9.修改blog/models.py,添加blog的模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">  author = models.ForeignKey(<span class="string">'auth.User'</span>)</span><br><span class="line">  title = models.CharField(max_length=<span class="number">200</span>)</span><br><span class="line">  text = models.TextField()</span><br><span class="line">  created_date = models.DateTimeField(</span><br><span class="line">          default=timezone.now)</span><br><span class="line">  published_date = models.DateTimeField(</span><br><span class="line">          blank=<span class="keyword">True</span>, null=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">publish</span><span class="params">(self)</span>:</span></span><br><span class="line">      self.published_date = timezone.now()</span><br><span class="line">      self.save()</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">      <span class="keyword">return</span> self.title</span><br></pre></td></tr></table></figure>
+<p>  在数据库中为模型创建数据表:python manage.py makemigrations blog<br>  迁移文件:python manage.py migrate blog<br>10.修改blog/admin.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line">admin.site.register(Post)</span><br></pre></td></tr></table></figure>
+<p>创建超级管理员</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(myvenv) ~/djangogirls$ python manage.py createsuperuser</span><br><span class="line">Username: admin</span><br><span class="line">Email address: admin@admin.com</span><br><span class="line">Password:</span><br><span class="line">Password (again):</span><br><span class="line">Superuser created successfully.</span><br></pre></td></tr></table></figure>
+<p>登录<a href="http://localhost:8000/admin/" target="_blank" rel="external">http://localhost:8000/admin/</a><br>在Posts一栏,点击Add,添加几篇文章</p>
+<p>11.修改mysite/urls.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    	url(<span class="string">r'^admin/'</span>, include(admin.site.urls)),</span><br><span class="line">    	url(<span class="string">r''</span>, include(<span class="string">'blog.urls'</span>)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>12.添加blog/urls.py   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    	url(<span class="string">r'^$'</span>, views.post_list, name=<span class="string">'post_list'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>13.创建blog/templates/blog目录.创建post_list.html文件<br>修改blog/views.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> django.utils <span class="keyword">import</span> timezone</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_list</span><span class="params">(request)</span>:</span></span><br><span class="line">	   posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(<span class="string">'published_date'</span>)</span><br><span class="line">	   <span class="keyword">return</span> render(request, <span class="string">'blog/post_list.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure>
+<p>14.创建base.html<br>    
+{% load staticfiles %}
+<html>
+    <head>
+    <title>Django Girls blog</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static " css="" blog.css"="" %}"="">
+    </head>
+    <body>
+        <div class="page-header">
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+        </body>
+    </html>
+</p>
+<p>创建post_list.html<br>
+{% extends "blog/base.html" %}
+
+    {% block content %}
+        {% for post in posts %}
+            <div class="post">
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+                <h1><a href="">{{ post.title }}</a></h1>
+                <p>{{ post.text|linebreaks }}</p>
+            </div>
+        {% endfor %}
+    {% endblock content %}
+</p>
+<p>15.创建文章详细页面<br>修改blog/urls.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">	   url(<span class="string">r'^$'</span>, views.post_list, name=<span class="string">'post_list'</span>),</span><br><span class="line">	   url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/$'</span>, views.post_detail, name=<span class="string">'post_detail'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>修改blog/view.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_detail</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">	post = get_object_or_404(Post, pk=pk)</span><br><span class="line">	<span class="keyword">return</span> render(request, <span class="string">'blog/post_detail.html'</span>, &#123;<span class="string">'post'</span>: post&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>添加blog/templates/blog/post_detail.html<br>
+{% extends "blog/base.html" %}
+
+    {% block content %}
+        <div class="post">
+            {% if post.published_date %}
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+            {% endif %}
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.text|linebreaks }}</p>
+        </div>
+    {% endblock %}	
+<br>16.添加新页面<br>创建blog/form.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django <span class="keyword">import</span> forms</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> Post</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        model = Post</span><br><span class="line">        fields = (<span class="string">'title'</span>, <span class="string">'text'</span>,)</span><br></pre></td></tr></table></figure>
+<p>修改blog/templates/blog/base.html</p>
+
+{% load staticfiles %}
+    <html>
+        <head>
+            <title>Django Girls blog</title>
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+            <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+            <link rel="stylesheet" href="{% static " css="" blog.css"="" %}"="">
+        </head>
+        <body>
+            <div class="page-header">
+                <a href="{% url " post_new"="" %}"="" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+                <h1><a href="/">Django Girls Blog</a></h1>
+            </div>
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-8">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+
+<p>修改blog/urls.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> include, url</span><br><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^$'</span>, views.post_list, name=<span class="string">'post_list'</span>),</span><br><span class="line">    url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/$'</span>, views.post_detail, name=<span class="string">'post_detail'</span>),</span><br><span class="line">    url(<span class="string">r'^post/new/$'</span>, views.post_new, name=<span class="string">'post_new'</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>修改blog/views.py,添加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> .forms <span class="keyword">import</span> PostForm</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> redirect</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_new</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">        form = PostForm(request.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            post = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            post.author = request.user</span><br><span class="line">            post.published_date = timezone.now()</span><br><span class="line">            post.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'blog.views.post_detail'</span>, pk=post.pk)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        form = PostForm()</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'blog/post_edit.html'</span>, &#123;<span class="string">'form'</span>: form&#125;)</span><br></pre></td></tr></table></figure>
+<p>添加blog/templates/post_edit.html</p>
+
+{% extends "blog/base.html" %}
+
+    {% block content %}
+        <h1>New post</h1>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    {% endblock %}
+
+<p>17.编辑博客内容<br>修改blog/templates/blog/post_detail.html</p>
+
+{% extends "blog/base.html" %}
+
+    {% block content %}
+        <div class="post">
+            {% if post.published_date %}
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+            {% endif %}
+            <a class="btn btn-default" href="{% url " post_edit"="" pk="post.pk" %}"=""><span class="glyphicon glyphicon-pencil"></span></a>
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.text|linebreaks }}</p>
+        </div>
+    {% endblock %}
+
+<p>在blog/urls.py中添加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^post/(?P&lt;pk&gt;[0-9]+)/edit/$'</span>, views.post_edit, name=<span class="string">'post_edit'</span>),</span><br></pre></td></tr></table></figure>
+<p>在blog/views.py中添加</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">post_edit</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">    post = get_object_or_404(Post, pk=pk)</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">"POST"</span>:</span><br><span class="line">        form = PostForm(request.POST, instance=post)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            post = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            post.author = request.user</span><br><span class="line">            post.published_date = timezone.now()</span><br><span class="line">            post.save()</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">'blog.views.post_detail'</span>, pk=post.pk)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        form = PostForm(instance=post)</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'blog/post_edit.html'</span>, &#123;<span class="string">'form'</span>: form&#125;)</span><br></pre></td></tr></table></figure>
+<p>18.</p>
+<p>  ||&gt;&gt;END&lt;&lt;||</p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/28/DjangoGirls-Blog/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
             <time itemprop="dateCreated" datetime="2016-05-28T15:17:55+08:00" content="2016-05-28">
               2016-05-28
             </time>
@@ -1555,6 +1777,669 @@ def post_new(request):
 </code></pre><br>
 18.</p>
 <p>||&gt;&gt;END&lt;&lt;||</p></article></body></html>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/17/OleDB/" itemprop="url">
+                  Access数据相关操作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-05-17T16:47:05+08:00" content="2016-05-17">
+              2016-05-17
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>Csharp 实现<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Data;</span><br><span class="line"><span class="keyword">using</span> System.Data.OleDb;</span><br><span class="line"><span class="keyword">using</span> System.Xml.Serialization;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">oledb</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="comment">//设置访问连接并选择字符串</span></span><br><span class="line">            <span class="comment">//如果从命令行生成此示例</span></span><br><span class="line">            <span class="comment">//则必须更改BugTypes的路径</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">if</span> USINGPROJECTSYSTEM</span></span><br><span class="line">            <span class="keyword">string</span> strAccessConn = <span class="string">"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=..\\..\\BugTypes.MDB"</span>;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">else</span></span></span><br><span class="line">            <span class="keyword">string</span> strAccessConn = <span class="string">"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=BugTypes.MDB"</span>;</span><br><span class="line"><span class="preprocessor">#<span class="keyword">endif</span></span></span><br><span class="line">            <span class="keyword">string</span> strAccessSelect = <span class="string">"SELECT * FROM Categories"</span>;</span><br><span class="line">            <span class="comment">//创建数据集并向其中添加Categories 表</span></span><br><span class="line">            DataSet myDataSet = <span class="keyword">new</span> DataSet();</span><br><span class="line">            OleDbConnection myAccessConn = <span class="keyword">null</span>;</span><br><span class="line">            <span class="comment">//打开连接</span></span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                myAccessConn = <span class="keyword">new</span> OleDbConnection(strAccessConn);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span>(Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"Error: Failed to create a database connection.\n&#123;0&#125;"</span>, ex.Message);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//提取所有数据</span></span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                OleDbCommand myAccessCommand = <span class="keyword">new</span> OleDbCommand(strAccessSelect, myAccessConn);</span><br><span class="line">                OleDbDataAdapter myDataAdapter = <span class="keyword">new</span> OleDbDataAdapter(myAccessCommand);</span><br><span class="line"></span><br><span class="line">                myAccessConn.Open();</span><br><span class="line">                myDataAdapter.Fill(myDataSet, <span class="string">"Categories"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span>(Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"Error: Failed to retrieve the required data from the DataBase.\n&#123;0&#125;"</span>, ex.Message);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">finally</span></span><br><span class="line">            &#123;</span><br><span class="line">                myAccessConn.Close();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 一个数据集可以包含多个表,因此可以将这些表名放入一个数组中</span></span><br><span class="line">            DataTableCollection dta = myDataSet.Tables;</span><br><span class="line">            <span class="keyword">foreach</span>(DataTable dt <span class="keyword">in</span> dta)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"Found data table &#123;0&#125;"</span>, dt.TableName);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 下面两行显示两种不同的方法,可以获取数据集中的表数</span></span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125; tables in data set"</span>, myDataSet.Tables.Count);</span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125; tables in data set"</span>, dta.Count);</span><br><span class="line">            <span class="comment">// 下面几行显示如何按照名称从数据集中获取特定表的信息</span></span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125; rows in Categories table"</span>, myDataSet.Tables[<span class="string">"Categories"</span>].Rows.Count);</span><br><span class="line">            <span class="comment">// 列信息自动从数据库中提取</span></span><br><span class="line">            Console.WriteLine(<span class="string">"&#123;0&#125; columns in Categories table"</span>, myDataSet.Tables[<span class="string">"Categories"</span>].Columns.Count);</span><br><span class="line">            DataColumnCollection drc = myDataSet.Tables[<span class="string">"Categories"</span>].Columns;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">foreach</span>(DataColumn dc <span class="keyword">in</span> drc)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"Column name[&#123;0&#125;] is &#123;1&#125;,of type &#123;2&#125; "</span>, i++, dc.ColumnName, dc.DataType);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            DataRowCollection dra = myDataSet.Tables[<span class="string">"Categories"</span>].Rows;</span><br><span class="line">            <span class="keyword">foreach</span>(DataRow dr <span class="keyword">in</span> dra)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"CategoryName [&#123;0&#125;] is &#123;1&#125;"</span>, dr[<span class="number">0</span>], dr[<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/25/dec2bin/" itemprop="url">
+                  十进制转换二进制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-04-25T10:59:56+08:00" content="2016-04-25">
+              2016-04-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="JavaScript实现">JavaScript实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Stack</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> items = [];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.push = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">		items.push(element);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">this</span>.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.pop();</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.peek = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items[items.length-<span class="number">1</span>];</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.length == <span class="number">0</span>;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> items.length;</span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">this</span>.clear = functions()&#123;</span><br><span class="line">		items = [];</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(items.toString());</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">divideBy2</span>(<span class="params">decNumber</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> remStack = <span class="keyword">new</span> Stack(),</span><br><span class="line">	    rem,</span><br><span class="line">	    binaryString = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (decNumber &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		rem = <span class="built_in">Math</span>.floor(decNumber % <span class="number">2</span>);</span><br><span class="line">		remStack.push(rem);</span><br><span class="line">		decNumber = <span class="built_in">Math</span>.floor(decNumber / <span class="number">2</span>); </span><br><span class="line">	&#125;    </span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (!remStack.isEmpty) &#123;</span><br><span class="line">		binaryString += remStack.pop().toString();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> binaryString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">233</span>));<span class="comment">//输出11101001</span></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">10</span>));<span class="comment">//输出1010</span></span><br><span class="line"><span class="built_in">console</span>.log(devideBy2(<span class="number">1000</span>));<span class="comment">//输出1111101000</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/29/sort-fsharp/" itemprop="url">
+                  排序（F#实现）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-29T20:50:26+08:00" content="2016-03-29">
+              2016-03-29
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ------ Example: define a sort function ------</span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">rec</span> sort list =</span><br><span class="line">   <span class="keyword">match</span> list <span class="keyword">with</span></span><br><span class="line">   <span class="comment">// If the list is empty</span></span><br><span class="line">   | [] -&gt;</span><br><span class="line">        []                            <span class="comment">// return an empty list</span></span><br><span class="line">   <span class="comment">// If the list is not empty</span></span><br><span class="line">   | firstElem::otherElements -&gt;      <span class="comment">// take the first element</span></span><br><span class="line">        <span class="keyword">let</span> smallerElements =         <span class="comment">// extract the smaller elements</span></span><br><span class="line">            otherElements             <span class="comment">// from the remaining ones</span></span><br><span class="line">            |&gt; List.filter (<span class="keyword">fun</span> e -&gt; e &lt; firstElem)</span><br><span class="line">            |&gt; sort                   <span class="comment">// and sort them</span></span><br><span class="line">        <span class="keyword">let</span> largerElements =          <span class="comment">// extract the larger ones</span></span><br><span class="line">            otherElements             <span class="comment">// from the remaining ones</span></span><br><span class="line">            |&gt; List.filter (<span class="keyword">fun</span> e -&gt; e &gt;= firstElem)</span><br><span class="line">            |&gt; sort                   <span class="comment">// and sort them</span></span><br><span class="line">        <span class="comment">// Combine the 3 parts into a new list and return it</span></span><br><span class="line">        List.concat [smallerElements; [firstElem]; largerElements]</span><br><span class="line"></span><br><span class="line"><span class="comment">// test</span></span><br><span class="line">sort [<span class="number">1</span>; <span class="number">5</span>; <span class="number">23</span>; <span class="number">18</span>; <span class="number">9</span>; <span class="number">1</span>; <span class="number">3</span>] |&gt; printfn <span class="string">"Sorted = %A"</span></span><br></pre></td></tr></table></figure>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/27/lang-map-load/" itemprop="url">
+                  编程语言学习路线图
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-27T15:52:36+08:00" content="2016-03-27">
+              2016-03-27
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="CSharp">CSharp</h3><ul>
+<li>Learning Hard C#</li>
+<li>C# in a Netshell</li>
+<li>C# in Depth</li>
+<li>CLR via C#</li>
+<li>C#语言规范</li>
+</ul>
+<h3 id="Java">Java</h3><ul>
+<li>Core Java for the Impatient</li>
+</ul>
+<h3 id="Python">Python</h3><ul>
+<li>Python介绍及应用</li>
+</ul>
+<h3 id="Clojure">Clojure</h3><ul>
+<li>Living Clojure</li>
+<li>Clojure CookBook</li>
+<li>the Toy of Clojure</li>
+</ul>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/09/simplefactory/" itemprop="url">
+                  简单工厂模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-09T08:52:28+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="简单工厂模式（C#实现）">简单工厂模式（C#实现）</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span><br><span class="line"></span><br><span class="line">        </span>&#123;   <span class="comment">//客户端代码</span></span><br><span class="line">            Operation oper;</span><br><span class="line">            oper = OperationFactory.createOperate(<span class="string">"+"</span>);</span><br><span class="line">            oper.NumberA = <span class="number">1</span>;</span><br><span class="line">            oper.NumberB = <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">double</span> result = oper.GetResult();</span><br><span class="line">            Console.WriteLine(<span class="string">"结果："</span> + result);</span><br><span class="line">            Console.Read();</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Operation运算类</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Operation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">double</span> _numberA = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">double</span> _numberB = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">double</span> NumberA</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> _numberA; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; _numberA = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">double</span> NumberB</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> _numberB; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; _numberB = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//加减乘除类</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title">OperationAdd</span> : <span class="title">Operation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">            result = NumberA + NumberB;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">OperationSub</span> : <span class="title">Operation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">            result = NumberA - NumberB;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">OperationMul</span> : <span class="title">Operation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">            result = NumberA * NumberB;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">OperationDiv</span> : <span class="title">Operation</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">double</span> <span class="title">GetResult</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (NumberB == <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"除数不能为0"</span>);</span><br><span class="line">            result = NumberA / NumberB;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OperationFactory</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Operation <span class="title">createOperate</span>(<span class="params"><span class="keyword">string</span> operate</span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            Operation oper = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">switch</span> (operate)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"+"</span>:</span><br><span class="line">                    oper = <span class="keyword">new</span> OperationAdd();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"-"</span>:</span><br><span class="line">                    oper = <span class="keyword">new</span> OperationSub();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"*"</span>:</span><br><span class="line">                    oper = <span class="keyword">new</span> OperationMul();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"/"</span>:</span><br><span class="line">                    oper = <span class="keyword">new</span> OperationDiv();</span><br><span class="line">                    <span class="keyword">break</span>;  </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> oper;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/09/living-Clojure/" itemprop="url">
+                  Living Clojure
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2016-03-09T08:14:28+08:00" content="2016-03-09">
+              2016-03-09
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword"><span class="built_in">defn</span></span> follow-the-rabbit <span class="collection">[]</span> <span class="string">"Off we go!"</span>)</span></span><br><span class="line"><span class="comment">;; -&gt; #'user/follow-the-rabbit</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">follow-the-rabbit</span>)</span></span><br><span class="line"><span class="comment">;; -&gt; "Off we go!"</span></span><br></pre></td></tr></table></figure>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/12/bubble-sort/" itemprop="url">
+                  冒泡排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-11-12T13:51:11+08:00" content="2015-11-12">
+              2015-11-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="冒泡排序（Python实现）">冒泡排序（Python实现）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BubbleSort</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">		<span class="keyword">for</span> k <span class="keyword">in</span> range(len(A) - <span class="number">1</span>,i,-<span class="number">1</span>):</span><br><span class="line">			<span class="keyword">if</span> (A[k] &lt; A[k - <span class="number">1</span>]):</span><br><span class="line">				swap(A,k,k - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap</span><span class="params">(A,x,y)</span>				:</span></span><br><span class="line">	tmp = A[x]</span><br><span class="line">	A[x] = A[y]</span><br><span class="line">	A[y] = tmp</span><br><span class="line"></span><br><span class="line">A = [<span class="number">534</span>, <span class="number">246</span>, <span class="number">933</span>, <span class="number">127</span>, <span class="number">277</span>, <span class="number">321</span>, <span class="number">454</span>, <span class="number">565</span>, <span class="number">220</span>]</span><br><span class="line">BubbleSort(A)</span><br><span class="line">print(A)</span><br></pre></td></tr></table></figure>
+
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/11/04/Strategy/" itemprop="url">
+                  策略模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            發表於
+            <time itemprop="dateCreated" datetime="2015-11-04T19:15:54+08:00" content="2015-11-04">
+              2015-11-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <h3 id="策略模式（C#代码实现）">策略模式（C#代码实现）</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">ConsoleApplication1</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span><br><span class="line"></span><br><span class="line">        </span>&#123;   <span class="comment">//客户端代码</span></span><br><span class="line">            Context context;</span><br><span class="line">            context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyA());</span><br><span class="line">            context.ContextInterface();</span><br><span class="line">            context = <span class="keyword">new</span> Context(<span class="keyword">new</span> ConcreteStrategyB());</span><br><span class="line">            context.ContextInterface();</span><br><span class="line">            Console.Read();</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//抽象类</span></span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Strategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">AlgorithmInterface</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//具体算法</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> : <span class="title">Strategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AlgorithmInterface</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"算法A实现"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> : <span class="title">Strategy</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">AlgorithmInterface</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"算法B实现"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//上下文类</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title">Context</span></span><br><span class="line">    &#123;</span><br><span class="line">        Strategy strategy;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Context</span>(<span class="params">Strategy strategy</span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.strategy = strategy;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ContextInterface</span>(<span class="params"></span>)</span><br><span class="line">        </span>&#123;</span><br><span class="line">            strategy.AlgorithmInterface();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
             
           </span>
         
