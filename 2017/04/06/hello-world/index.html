@@ -53,16 +53,40 @@
 
 
 
-<meta name="description" content="冒泡排序（Python实现）1234567891011121314def BubbleSort(A):	for i in range(len(A)):		for k in range(len(A) - 1,i,-1):			if (A[k] &amp;lt; A[k - 1]):				swap(A,k,k - 1)def swap(A,x,y)				:	tmp = A[x]	A[x] = A[y]	A">
+<meta name="description" content="欢迎使用Hexo! 这是第一篇文章，检查文档获取更多信息。如果对Hexo有任何问题，请查看疑问.你也可以到Github咨询我.
+快速入门创建新文章1$ hexo new &quot;My New Post&quot;
+更多信息: 写作
+运行服务器1$ hexo server
+更多信息: 服务器
+生成静态文件1$ hexo generate
+更多信息: 生成
+部署到远程服务器1$ hexo deploy
+更多信息: 部">
 <meta property="og:type" content="article">
-<meta property="og:title" content="冒泡排序">
-<meta property="og:url" content="http://yoursite.com/2015/11/12/bubble-sort/index.html">
+<meta property="og:title" content="Hexo快速入门">
+<meta property="og:url" content="http://yoursite.com/2017/04/06/hello-world/index.html">
 <meta property="og:site_name" content="SmallTalk">
-<meta property="og:description" content="冒泡排序（Python实现）1234567891011121314def BubbleSort(A):	for i in range(len(A)):		for k in range(len(A) - 1,i,-1):			if (A[k] &amp;lt; A[k - 1]):				swap(A,k,k - 1)def swap(A,x,y)				:	tmp = A[x]	A[x] = A[y]	A">
-<meta property="og:updated_time" content="2015-11-12T05:58:41.637Z">
+<meta property="og:description" content="欢迎使用Hexo! 这是第一篇文章，检查文档获取更多信息。如果对Hexo有任何问题，请查看疑问.你也可以到Github咨询我.
+快速入门创建新文章1$ hexo new &quot;My New Post&quot;
+更多信息: 写作
+运行服务器1$ hexo server
+更多信息: 服务器
+生成静态文件1$ hexo generate
+更多信息: 生成
+部署到远程服务器1$ hexo deploy
+更多信息: 部">
+<meta property="og:updated_time" content="2015-11-03T10:00:16.898Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="冒泡排序">
-<meta name="twitter:description" content="冒泡排序（Python实现）1234567891011121314def BubbleSort(A):	for i in range(len(A)):		for k in range(len(A) - 1,i,-1):			if (A[k] &amp;lt; A[k - 1]):				swap(A,k,k - 1)def swap(A,x,y)				:	tmp = A[x]	A[x] = A[y]	A">
+<meta name="twitter:title" content="Hexo快速入门">
+<meta name="twitter:description" content="欢迎使用Hexo! 这是第一篇文章，检查文档获取更多信息。如果对Hexo有任何问题，请查看疑问.你也可以到Github咨询我.
+快速入门创建新文章1$ hexo new &quot;My New Post&quot;
+更多信息: 写作
+运行服务器1$ hexo server
+更多信息: 服务器
+生成静态文件1$ hexo generate
+更多信息: 生成
+部署到远程服务器1$ hexo deploy
+更多信息: 部">
 
 
 
@@ -74,7 +98,7 @@
   };
 </script>
 
-  <title> 冒泡排序 | SmallTalk </title>
+  <title> Hexo快速入门 | SmallTalk </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -194,7 +218,7 @@
             
             
               
-                冒泡排序
+                Hexo快速入门
               
             
           </h1>
@@ -203,8 +227,8 @@
         <div class="post-meta">
           <span class="post-time">
             發表於
-            <time itemprop="dateCreated" datetime="2015-11-12T13:51:11+08:00" content="2015-11-12">
-              2015-11-12
+            <time itemprop="dateCreated" datetime="2017-04-06T09:51:25+08:00" content="2017-04-06">
+              2017-04-06
             </time>
           </span>
 
@@ -227,7 +251,15 @@
       
 
       
-        <span itemprop="articleBody"><h3 id="冒泡排序（Python实现）">冒泡排序（Python实现）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BubbleSort</span><span class="params">(A)</span>:</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(len(A)):</span><br><span class="line">		<span class="keyword">for</span> k <span class="keyword">in</span> range(len(A) - <span class="number">1</span>,i,-<span class="number">1</span>):</span><br><span class="line">			<span class="keyword">if</span> (A[k] &lt; A[k - <span class="number">1</span>]):</span><br><span class="line">				swap(A,k,k - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap</span><span class="params">(A,x,y)</span>				:</span></span><br><span class="line">	tmp = A[x]</span><br><span class="line">	A[x] = A[y]</span><br><span class="line">	A[y] = tmp</span><br><span class="line"></span><br><span class="line">A = [<span class="number">534</span>, <span class="number">246</span>, <span class="number">933</span>, <span class="number">127</span>, <span class="number">277</span>, <span class="number">321</span>, <span class="number">454</span>, <span class="number">565</span>, <span class="number">220</span>]</span><br><span class="line">BubbleSort(A)</span><br><span class="line">print(A)</span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>欢迎使用<a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! 这是第一篇文章，检查<a href="http://hexo.io/docs/" target="_blank" rel="external">文档</a>获取更多信息。如果对Hexo有任何问题，请查看<a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">疑问</a>.你也可以到<a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">Github</a>咨询我.</p>
+<h2 id="快速入门">快速入门</h2><h3 id="创建新文章">创建新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>更多信息: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">写作</a></p>
+<h3 id="运行服务器">运行服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>更多信息: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">服务器</a></p>
+<h3 id="生成静态文件">生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>更多信息: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">生成</a></p>
+<h3 id="部署到远程服务器">部署到远程服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>更多信息: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">部署</a></p>
 </span>
       
     </div>
@@ -239,16 +271,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/04/Strategy/" rel="next" title="策略模式">
-                <i class="fa fa-chevron-left"></i> 策略模式
+              <a href="/2016/09/28/js-stack/" rel="next" title="js_stack">
+                <i class="fa fa-chevron-left"></i> js_stack
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/09/living-Clojure/" rel="prev" title="Living Clojure">
-                Living Clojure <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/06/simplefactory/" rel="prev" title="简单工厂模式">
+                简单工厂模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -363,7 +395,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序（Python实现）"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序（Python实现）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速入门"><span class="nav-number">1.</span> <span class="nav-text">快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新文章"><span class="nav-number">1.1.</span> <span class="nav-text">创建新文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行服务器"><span class="nav-number">1.2.</span> <span class="nav-text">运行服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成静态文件"><span class="nav-number">1.3.</span> <span class="nav-text">生成静态文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署到远程服务器"><span class="nav-number">1.4.</span> <span class="nav-text">部署到远程服务器</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
