@@ -53,16 +53,16 @@
 
 
 
-<meta name="description" content="内表ALV增强">
+<meta name="description" content="内表查找内表重复数据1DATA: it_test   TYPE STANDARD TABLE OF ty_test WITH HEADER LINE,&amp;#10;      old_f1(3),&amp;#10;      old_f3(3).&amp;#10;it_test-f1 = &amp;#39;AAA&amp;#39;. it_test-f2 = &amp;#39;AAA&amp;#39;. it_test-f3 = &amp;#39;DDD&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="abap汇编">
+<meta property="og:title" content="ABAP汇编">
 <meta property="og:url" content="http://yoursite.com/2017/10/28/abap/index.html">
 <meta property="og:site_name" content="SmallTalk">
-<meta property="og:description" content="内表ALV增强">
-<meta property="og:updated_time" content="2017-10-28T01:15:00.392Z">
+<meta property="og:description" content="内表查找内表重复数据1DATA: it_test   TYPE STANDARD TABLE OF ty_test WITH HEADER LINE,&amp;#10;      old_f1(3),&amp;#10;      old_f3(3).&amp;#10;it_test-f1 = &amp;#39;AAA&amp;#39;. it_test-f2 = &amp;#39;AAA&amp;#39;. it_test-f3 = &amp;#39;DDD&amp;">
+<meta property="og:updated_time" content="2017-10-28T01:23:39.928Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="abap汇编">
-<meta name="twitter:description" content="内表ALV增强">
+<meta name="twitter:title" content="ABAP汇编">
+<meta name="twitter:description" content="内表查找内表重复数据1DATA: it_test   TYPE STANDARD TABLE OF ty_test WITH HEADER LINE,&amp;#10;      old_f1(3),&amp;#10;      old_f3(3).&amp;#10;it_test-f1 = &amp;#39;AAA&amp;#39;. it_test-f2 = &amp;#39;AAA&amp;#39;. it_test-f3 = &amp;#39;DDD&amp;">
 
 
 
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title> abap汇编 | SmallTalk </title>
+  <title> ABAP汇编 | SmallTalk </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -194,7 +194,7 @@
             
             
               
-                abap汇编
+                ABAP汇编
               
             
           </h1>
@@ -227,7 +227,8 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="内表">内表</h2><h2 id="ALV">ALV</h2><h2 id="增强">增强</h2></span>
+        <span itemprop="articleBody"><h2 id="内表">内表</h2><h4 id="查找内表重复数据">查找内表重复数据</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATA: it_test   TYPE STANDARD TABLE OF ty_test WITH HEADER LINE,&#10;      old_f1(3),&#10;      old_f3(3).&#10;it_test-f1 = &#39;AAA&#39;. it_test-f2 = &#39;AAA&#39;. it_test-f3 = &#39;DDD&#39;. APPEND it_test.&#10;it_test-f1 = &#39;BBB&#39;. it_test-f2 = &#39;AAA&#39;. it_test-f3 = &#39;CCC&#39;. APPEND it_test.&#10;it_test-f1 = &#39;AAA&#39;. it_test-f2 = &#39;AAA&#39;. it_test-f3 = &#39;AAA&#39;. APPEND it_test.&#10;it_test-f1 = &#39;BBB&#39;. it_test-f2 = &#39;AAA&#39;. it_test-f3 = &#39;CCC&#39;. APPEND it_test.&#10;&#10;SORT: it_test BY f1 f3.&#10;LOOP AT it_test.&#10;  IF old_f1 = it_test-f1 AND old_f3 = it_test-f3.&#10;    WRITE: &#39;There is Duplicate Record on Index &#39;, sy-tabix.&#10;  ENDIF.&#10;  old_f1 = it_test-f1.&#10;  old_f3 = it_test-f3.&#10;ENDLOOP.</span><br></pre></td></tr></table></figure>
+<h2 id="ALV">ALV</h2><h2 id="增强">增强</h2><h2 id="常用函数">常用函数</h2><h2 id="接口">接口</h2><h2 id="屏幕">屏幕</h2><h2 id="BAPI">BAPI</h2></span>
       
     </div>
 
@@ -362,7 +363,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内表"><span class="nav-number">1.</span> <span class="nav-text">内表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALV"><span class="nav-number">2.</span> <span class="nav-text">ALV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增强"><span class="nav-number">3.</span> <span class="nav-text">增强</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内表"><span class="nav-number">1.</span> <span class="nav-text">内表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查找内表重复数据"><span class="nav-number">1.0.1.</span> <span class="nav-text">查找内表重复数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALV"><span class="nav-number">2.</span> <span class="nav-text">ALV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增强"><span class="nav-number">3.</span> <span class="nav-text">增强</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用函数"><span class="nav-number">4.</span> <span class="nav-text">常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">5.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#屏幕"><span class="nav-number">6.</span> <span class="nav-text">屏幕</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BAPI"><span class="nav-number">7.</span> <span class="nav-text">BAPI</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
