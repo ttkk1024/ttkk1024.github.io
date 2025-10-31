@@ -71,6 +71,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo在github部署个人博客" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/10/31/hexo%E5%9C%A8github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time class="dt-published" datetime="2025-10-31T03:31:12.000Z" itemprop="datePublished">2025-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/10/31/hexo%E5%9C%A8github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo在github部署个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>1.首先在github部署两个仓库A和B，A用来显示博客内容，B是博客源代码<br>2.我用wsl的linux作为写作环境，创建两种登陆方式，ssh的登陆方式给hexo，git的登陆方式用token登陆</p>
+<ul>
+<li>ssh登陆方式</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;youremail&quot;</span>,</span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa_pub   <span class="comment">#复制展示的内容</span></span><br></pre></td></tr></table></figure>
+<p> 登陆github,个人头像-&gt;settings-&gt;SSH and GPG keys-&gt;new ssh key -&gt;粘贴上面cat的内容</p>
+<ul>
+<li>token登陆方式<br>登陆github,个人头像-&gt;settings-&gt; Developer settings -&gt; personal access tokens -&gt;tokens(classic)-&gt;generate new token -&gt;generate new token(classic)-&gt;生成ghp开头的密钥</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin https://ttkk1024:ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXX@github.com/ttkk1024/ttkk1024.github.io-src.git</span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+<p>切换到blog目录，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">&quot;new blog&quot;</span></span><br><span class="line">code hexo\blog\<span class="built_in">source</span>\_posts\new blog.md</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br><span class="line"></span><br><span class="line">git init</span><br><span class="line">git add -A</span><br><span class="line">git commit -m <span class="string">&quot;init&quot;</span></span><br><span class="line">git push -u origin main</span><br></pre></td></tr></table></figure>
+
+<p>这样就能ttkk1024.github.io看到new blog的博客，ttkk1024.github.io-src看到hexo的源代码</p>
+<p>为什么创建两个仓库，是因为hexo不能pull只能push，这样就无法获取hexo的原始内容</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/10/31/hexo%E5%9C%A8github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-id="cuidFctVzS8r7dqVukHon216j" data-title="hexo在github部署个人博客" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Java学习大纲" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/10/30/Java%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="article-date">
@@ -282,6 +335,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/10/31/hexo%E5%9C%A8github%E9%83%A8%E7%BD%B2%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">hexo在github部署个人博客</a>
+          </li>
         
           <li>
             <a href="/2025/10/30/Java%E5%AD%A6%E4%B9%A0%E5%A4%A7%E7%BA%B2/">Java学习大纲</a>
